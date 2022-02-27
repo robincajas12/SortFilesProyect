@@ -1,0 +1,27 @@
+{
+  "name": "orderfile",
+  "version": "1.0.0",
+  "description": "you can oder your files with this desktop app :v ",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "author": "robinson cajas",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^17.1.0",
+    "electron-builder": "^22.14.13"
+  },
+  "build": {
+    "productName": "Sort Files",
+    "target": "NSIS",
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Sort file manager 1.0.0</title>
+</head>
+<body>
+    <div class="alert alert-danger" id="warning-banner" role="alert">
+        This is the first version It could have some bugs
+        <span id="warning" class="btn btn-danger">x</span>
+    </div>
+    <section id="header">
+        <div>
+            <h1>Sort File</h1>
+            <p>This is an App to sort your files and put them in a specific folder</p>
+            <div class="input-group">
+                <input class="form-control" type="text" id="order-path" name="rute" placeholder="path">
+                <button id="btn-order" class="btn btn-danger">order files</button>
+            </div>
+        </div>
+    </section>
+    <section id="manager" class="container">
+        <div class="row">
+            <div class="crud col-sm-6">
+                <h1>Save paths</h1>
+                <p>coming soon..</p>
+            </div>
+            <div class="col-sm-6">
+                <h2>Console</h2>
+                <div id="console" class="console">
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script>
+        let warning = document.getElementById('warning');
+        let warningBanner = document.getElementById('warning-banner');
+        warning.addEventListener('click', ()=>{
+            warningBanner.style.display = 'none';
+        })
+        let consoleHtml = document.getElementById('console');
+        let btnOrder = document.getElementById('btn-order');
+        let inputPath = document.getElementById('order-path');
+        btnOrder.addEventListener('click', ()=>{
+            const {orderFile} = require('./oderFile');
+            orderFile(inputPath.value, consoleHtml);
+        });
+    </script>
+    <script>
+        require('./render.js');
+    </script>
+</body>
+</html>
