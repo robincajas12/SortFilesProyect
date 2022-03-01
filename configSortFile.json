@@ -1,0 +1,30 @@
+{
+    "sortFiles":{
+        "allowedFormats":[
+            {
+                "formats": [".txt", ".pdf", ".docx", ".srt"],
+                "folderName": "Documentos"
+            },
+            {
+                "formats": [".pptx"],
+                "folderName": "Diapositivas"
+            },
+            {
+                "formats": [".xlsx"],
+                "folderName": "Hojas de calculo"
+            },
+            {
+                "formats": [".png", ".jpg", ".jpng", ".gif", ".ico", ".jfif", ".jpeg"],
+                "folderName": "Imagenes"
+            },
+            {
+                "formats": [".exe", ".msi"],
+                "folderName": "Programas e instaladores"
+            },
+            {
+                "formats": [".rar", "zip"],
+                "folderName": "Comprimidos"
+            }
+        ]
+    }
+}
