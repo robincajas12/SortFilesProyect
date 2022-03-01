@@ -16,7 +16,7 @@ function createWindow()
           }
     });
     win.loadFile(path.join(__dirname, 'index.html'));
-    win.removeMenu();
+    // win.removeMenu();
     win.on('closed', ()=>{
         win = null;
     })

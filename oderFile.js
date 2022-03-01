@@ -1,28 +1,45 @@
 function orderFile(path, consoleHtml)
 {
-        
     const fs = require('fs');
-    const pathToOrder = path;//Aquí va el directrorio que quieras ordenar
-    const extensiones = [`.txt|.pdf|.docx|.pptx|.srt|.xlsx`,`.png|.jpg|.jpng|.gif|.ico|.jfif|.jpeg`,`.mp4|.mov`,`.mp3`, `.exe|.msi`, `.rar|.zip`] // estas son las extensiones son expresiones regulares
-    fs.readdir(pathToOrder, (err, files)=>{
+    const configSortFiles = require('./configSortFile.json');
+    const pathToOrder = path//Aquí va el directrorio que quieras ordenar
+    // const extensiones = [`.txt|.pdf|.docx|.pptx|.srt|.xlsx`,`.png|.jpg|.jpng|.gif|.ico|.jfif|.jpeg`,`.mp4|.mov`,`.mp3`, `.exe|.msi`, `.rar|.zip`] // estas son las extensiones son expresiones regulares
+    fs.readdir(pathToOrder, (err, files)=>{ 
+        const dataFolders = concatAllOfTheExt();
+        console.log(dataFolders);
         files.forEach(archivo =>{
-            extensiones.forEach(extension=>{
-                console.log(buscar(extension, archivo));
-                if(buscar(extension, archivo)) 
+            dataFolders.filter(dataFolder=>{
+                if(buscar(dataFolder.expresion, archivo))
                 {
-                    if(extension == extensiones[0]) mover('documentos', archivo);
-                    else if(extension == extensiones[1]) mover('images', archivo);
-                    else if(extension == extensiones[2]) mover('videos', archivo);
-                    else if(extension == extensiones[3]) mover('audios', archivo);
-                    else if(extension == extensiones[4]) mover('programas', archivo);
-                    else if(extension == extensiones[5]) mover('comprimidos', archivo);
+                    mover(dataFolder.folderName, archivo);
                 }
-            })
-        })
-    })
+                });
+            });
+        });
 
+
+//Convierte las extensiones del json en expresiones regulares
+    function concatAllOfTheExt()
+    {
+        let arryExtensiones = [];
+        configSortFile.sortFiles.allowedFormats.forEach(objFormat=>{
+            let exp = "";
+            objFormat.formats.forEach(format=>{
+                exp += format + '|';
+            })
+            arryExtensiones.push(
+                {
+                    expresion:exp.substring(0, exp.length - 1),
+                    folderName: objFormat.folderName
+                });
+            exp = "";
+        });
+        return arryExtensiones;
+    }
     //Mueve el archivo a la carpeta que le pases por parametro
     // extra: si la carpeta no existe creara una y volvera a ejecutar la funcion una vez mas
+
+    const configSortFile = require('./configSortFile.json');
     function mover(carpeta, archivo)
     {
         const oldPath = pathToOrder + '/' + archivo;
@@ -33,7 +50,7 @@ function orderFile(path, consoleHtml)
                 mover(carpeta,archivo);
             }
             const div = document.createElement('div');
-            div.innerText ='>' + archivo + ' fue movido exitosamente';
+            div.innerText ='>' + archivo + ' fue movido exitosamente a la carpeta ' + carpeta;
             consoleHtml.appendChild(div);
         })
     }
@@ -43,10 +60,11 @@ function orderFile(path, consoleHtml)
         const exp = expresion;
         const er = new RegExp(exp);
         let isTheType =  er.test(archivo);
-        console.log(expresion + ' is the type ' + isTheType);
+        console.log(expresion + ' is the type ' + archivo +' = ' + isTheType);
         return isTheType;
 
     }
+        
 }
 
 exports.orderFile=orderFile;
