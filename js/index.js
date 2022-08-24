@@ -10,12 +10,6 @@ btnOrder.addEventListener('click', ()=>{
     window.api.orderFile(inputPath.value);
 });
 
-window.api.crud.then(realm => {
-    realm.write(()=>{
-        newEntry = realm.create('ConfigPaths', {folderName: 'lmao', formats: ['.apk']})
-    });
 
-    console.log(realm.objects('ConfigPaths')[0].folderName);
-});
 
 // folderName: 'lmao', formats: ['.apk']

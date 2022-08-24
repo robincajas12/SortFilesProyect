@@ -1,4 +1,5 @@
-function orderFile(path)
+
+async function orderFile(path)
 {
     const {configSortFilesDB} = require('./database/realm');
     const fs = require('fs');
@@ -6,41 +7,46 @@ function orderFile(path)
     const pathToOrder = path//Aquí va el directrorio que quieras ordenar
     // const extensiones = [`.txt|.pdf|.docx|.pptx|.srt|.xlsx`,`.png|.jpg|.jpng|.gif|.ico|.jfif|.jpeg`,`.mp4|.mov`,`.mp3`, `.exe|.msi`, `.rar|.zip`] // estas son las extensiones son expresiones regulares
     fs.readdir(pathToOrder, (err, files)=>{ 
-        const dataFolders = concatAllOfTheExt();
-        console.log(dataFolders);
-        files.forEach(archivo =>{
-            dataFolders.filter(dataFolder=>{
-                if(buscar(dataFolder.expresion, archivo))
-                {
-                    mover(dataFolder.folderName, archivo);
-                }
+
+        concatAllOfTheExt().then(res => {
+            const dataFolders = res;
+            console.log(dataFolders);
+            files.forEach(archivo =>{
+                dataFolders.filter(dataFolder=>{
+                    if(buscar(dataFolder.expresion, archivo))
+                    {
+                        mover(dataFolder.folderName, archivo);
+                    }
+                    });
                 });
-            });
+            })
         });
 
 
 //Convierte las extensiones del json en expresiones regulares
-    function concatAllOfTheExt()
+function concatAllOfTheExt()
     {
-        configSortFilesDB()
-        .then(realm=> realm.objects("ConfigPaths"))
-        .then(configSortFiles => {
-            
-        });
-        let arryExtensiones = [];
-        configSortFile.sortFiles.allowedFormats.forEach(objFormat=>{
-            let exp = "";
-            objFormat.formats.forEach(format=>{
-                exp += format + '|';
-            })
-            arryExtensiones.push(
-                {
-                    expresion:exp.substring(0, exp.length - 1),
-                    folderName: objFormat.folderName
+            return new Promise((resolve, reject)=>{
+                configSortFilesDB()
+                .then(realm=> realm.objects("ConfigPaths"))
+                .then(configSortFiles => {
+                    let arryExtensiones = [];
+                    configSortFiles.forEach(objFormat=>{
+                        let exp = "";
+                        objFormat.formats.forEach(format=>{
+                            exp += format + '|';
+                        })
+                        console.log(objFormat);
+                        arryExtensiones.push(
+                            {
+                                expresion:exp.substring(0, exp.length - 1),
+                                folderName: objFormat.folderName
+                            });
+                        exp = "";
+                    });
+                    resolve(arryExtensiones);
                 });
-            exp = "";
-        });
-        return arryExtensiones;
+            })
     }
     //Mueve el archivo a la carpeta que le pases por parametro
     // extra: si la carpeta no existe creara una y volvera a ejecutar la funcion una vez mas
