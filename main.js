@@ -8,15 +8,16 @@ function createWindow()
     win = new BrowserWindow({
         width:800,
         height: 600,
-        icon: path.join(__dirname,'img','icon.jpg'),
+        icon: path.join(__dirname,'img','xd.jpg'),
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: false,
+            contextIsolation: true,
             enableRemoteModule: true,
+            preload: path.join(__dirname, 'preload.js')
           }
     });
     win.loadFile(path.join(__dirname, 'index.html'));
-    win.removeMenu();
+    // win.removeMenu();
     win.on('closed', ()=>{
         win = null;
     })

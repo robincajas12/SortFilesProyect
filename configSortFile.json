@@ -22,7 +22,7 @@
                 "folderName": "Programas e instaladores"
             },
             {
-                "formats": [".rar", "zip"],
+                "formats": [".rar", ".zip"],
                 "folderName": "Comprimidos"
             }
         ]

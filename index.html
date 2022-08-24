@@ -19,6 +19,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" id="order-path" name="rute" placeholder="path">
                 <button id="btn-order" class="btn btn-danger">order files</button>
+                <button id="btn-add-path" class="btn btn-success">addPath</button>
             </div>
         </div>
     </section>
@@ -26,7 +27,9 @@
         <div class="row">
             <div class="crud col-sm-6">
                 <h1>Save paths</h1>
-                <p>coming soon..</p>
+                <div id="save-paths">
+
+                </div>
             </div>
             <div class="col-sm-6">
                 <h2>Console</h2>
@@ -36,6 +39,16 @@
             </div>
         </div>
     </section>
+    <section class="add-path-input__container" id="input-add-path">
+        <div class="input-group">
+            <input type="text" id="name-path"  class="form-control" placeholder="name of the path">
+            <button class="btn btn-success" id="save-changes-add-path">Save Changes</button>
+            <button class="btn btn-danger" id="cancelar-btn-add-path">Cancelar</button>
+        </div>
+    </section>
+
+
+
 
 
 
@@ -45,22 +58,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script>
-        let warning = document.getElementById('warning');
-        let warningBanner = document.getElementById('warning-banner');
-        warning.addEventListener('click', ()=>{
-            warningBanner.style.display = 'none';
-        })
-        let consoleHtml = document.getElementById('console');
-        let btnOrder = document.getElementById('btn-order');
-        let inputPath = document.getElementById('order-path');
-        btnOrder.addEventListener('click', ()=>{
-            const {orderFile} = require('./oderFile');
-            orderFile(inputPath.value, consoleHtml);
-        });
-    </script>
-    <script>
+    <script src="./js/index.js"></script>
+    <script src="./js/savePaths.js"></script>
+    <!-- <script>
         require('./render.js');
-    </script>
+    </script> -->
 </body>
 </html>

@@ -11,7 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^17.1.0",
-    "electron-builder": "^22.14.13"
+    "electron-builder": "^5.5.0"
   },
   "build": {
     "productName": "Sort Files",
@@ -23,5 +23,8 @@
       "allowToChangeInstallationDirectory": true,
       "oneClick": false
     }
+  },
+  "dependencies": {
+    "realm": "^10.20.0"
   }
 }
