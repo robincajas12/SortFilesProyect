@@ -1,5 +1,6 @@
-function orderFile(path, consoleHtml)
+function orderFile(path)
 {
+    const {configSortFilesDB} = require('./database/realm');
     const fs = require('fs');
     const configSortFiles = require('./configSortFile.json');
     const pathToOrder = path//Aquí va el directrorio que quieras ordenar
@@ -21,6 +22,11 @@ function orderFile(path, consoleHtml)
 //Convierte las extensiones del json en expresiones regulares
     function concatAllOfTheExt()
     {
+        configSortFilesDB()
+        .then(realm=> realm.objects("ConfigPaths"))
+        .then(configSortFiles => {
+            
+        });
         let arryExtensiones = [];
         configSortFile.sortFiles.allowedFormats.forEach(objFormat=>{
             let exp = "";
@@ -49,9 +55,9 @@ function orderFile(path, consoleHtml)
                 fs.mkdirSync(`${pathToOrder}/${carpeta}`,{recursive:true});
                 mover(carpeta,archivo);
             }
-            const div = document.createElement('div');
-            div.innerText ='>' + archivo + ' fue movido exitosamente a la carpeta ' + carpeta;
-            consoleHtml.appendChild(div);
+            // const div = document.createElement('div');
+            // div.innerText ='>' + archivo + ' fue movido exitosamente a la carpeta ' + carpeta;
+            // consoleHtml.appendChild(div);
         })
     }
     //devuelve verdadero o falso dependiendo si la extension del archivo coincide con la expresion 

@@ -7,6 +7,15 @@ let consoleHtml = document.getElementById('console');
 let btnOrder = document.getElementById('btn-order');
 let inputPath = document.getElementById('order-path');
 btnOrder.addEventListener('click', ()=>{
-    const {orderFile} = require('./oderFile');
-    orderFile(inputPath.value, consoleHtml);
+    window.api.orderFile(inputPath.value);
 });
+
+window.api.crud.then(realm => {
+    realm.write(()=>{
+        newEntry = realm.create('ConfigPaths', {folderName: 'lmao', formats: ['.apk']})
+    });
+
+    console.log(realm.objects('ConfigPaths')[0].folderName);
+});
+
+// folderName: 'lmao', formats: ['.apk']
